@@ -1,9 +1,14 @@
-def capitalize()	Converts the first character to upper case
-def casefold() :
+def capitalize(self) :
+    """
+    Converts the first character to upper case
+    """
+    self[0] = self[0].upper()
+
+def casefold(self) :
     """
 	Converts string into lower case
     """
-    pass
+    "".join(c.lower() for c in self)
 
 def center():
     """
@@ -11,11 +16,18 @@ def center():
     """
     pass
 
-def count():
+def count(self, value):
     """
     Returns the number of times a specified value occurs in a string
     """
-    pass
+    times = 0
+    i = 0
+    valLen = len(value)
+    maxI = len(self) + valLen
+    while(i < maxI) :
+        times += self[i:i+valLen] == value
+        i += 1
+    return times
 
 def encode():
     """
@@ -23,11 +35,11 @@ def encode():
     """
     pass
 
-def endswith():
+def endswith(self, value):
     """
     Returns true if the string ends with the specified value
     """
-    pass
+    return self[-len(value):] == value
 
 def expandtabs():
     """
@@ -35,11 +47,18 @@ def expandtabs():
     """
     pass
 
-def find():
+def find(self, value):
     """
     Searches the string for a specified value and returns the position of where it was found
     """
-    pass
+    i = 0
+    valLen = len(value)
+    maxI = len(self) + valLen
+    while(i < maxI) :
+        if self[i:i+valLen] == value :
+            return i
+        i += 1
+    raise Exception("The value is not included in the string")
 
 def format():
     """
@@ -57,7 +76,14 @@ def index():
     """
     Searches the string for a specified value and returns the position of where it was found
     """
-    pass
+    i = 0
+    valLen = len(value)
+    maxI = len(self) + valLen
+    while(i < maxI) :
+        if self[i:i+valLen] == value :
+            return i
+        i += 1
+    raise Exception("The value is not included in the string")
 
 def isalnum():
     """
@@ -95,11 +121,12 @@ def isidentifier():
     """
     pass
 
-def islower():
+def islower(self):
     """
     Returns True if all characters in the string are lower case
     """
-    pass
+    maj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    return all(c not in maj for c in self)
 
 def isnumeric():
     """
@@ -117,7 +144,7 @@ def isspace():
     """
     Returns True if all characters in the string are whitespaces
     """
-    pass
+    return all(c == " " for c in self)
 
 def istitle():
     """
@@ -129,13 +156,18 @@ def isupper():
     """
     Returns True if all characters in the string are upper case
     """
-    pass
+    min = "abcdefghijklmnopqrstuvwxyz"
+    return all(c not in min for c in self)
 
-def join():
+def join(self, data):
     """
     Converts the elements of an iterable into a string
     """
-    pass
+    res = str(data)
+    for i in range(1, len(data)) :
+        res += self + data[i]
+
+
 
 def ljust():
     """
@@ -143,11 +175,15 @@ def ljust():
     """
     pass
 
-def lower():
+def lower(self):
     """
     Converts a string into lower case
     """
-    pass
+    maj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    min = "abcdefghijklmnopqrstuvwxyz"
+    for i in range(len(self)) :
+        self[i] = min[maj.index(self[i])] if self[i] in maj else self[i]
+
 
 def lstrip():
     """
@@ -155,7 +191,7 @@ def lstrip():
     """
     pass
 
-def maketrans():
+def maketrans(x, y = "", z = ""):
     """
     Returns a translation table to be used in translations
     """
@@ -255,7 +291,10 @@ def upper():
     """
     Converts a string into upper case
     """
-    pass
+    maj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    min = "abcdefghijklmnopqrstuvwxyz"
+    for i in range(len(self)) :
+        self[i] = maj[min.index(self[i])] if self[i] in min else self[i]
 
 def zfill():
     """
