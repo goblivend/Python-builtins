@@ -109,11 +109,12 @@ def isdecimal():
     """
     pass
 
-def isdigit():
+def isdigit(self):
     """
     Returns True if all characters in the string are digits
     """
-    pass
+    digits = '0123456789'
+    return all(c in digits for c in self)
 
 def isidentifier():
     """
@@ -191,11 +192,25 @@ def lstrip():
     """
     pass
 
-def maketrans(x, y = "", z = ""):
+def maketrans(x, y = None, z = ""):
     """
     Returns a translation table to be used in translations
     """
-    pass
+    if type(x) == type({}) :
+        if not y :
+            return x
+        raise TypeError('first maketrans argument must be a string if there is a second argument')
+    if not y :
+        raise TypeError("if you give only one argument to maketrans it must be a dict")
+
+    if len(x) != len(y) :
+        raise ValueError("the first two maketrans arguments must have equal length")
+
+    translation = { ord(pat):ord(val) for pat,val in zip(x, y)}
+    translation.update({ord(pat):None for pat in z})
+    return translation
+
+
 
 def partition():
     """
@@ -203,11 +218,22 @@ def partition():
     """
     pass
 
-def replace():
+def replace(self, patt, val):
     """
     Returns a string where a specified value is replaced with a specified value
     """
-    pass
+    i = 0
+    length = len(patt)
+    mylen = len(self)
+    newstr = ""
+    while i + length < mylen :
+        if self[i:i+length] == patt :
+            newstr += val
+            i += length
+        else :
+            i += 1
+
+
 
 def rfind():
     """
@@ -251,17 +277,18 @@ def split():
     """
     pass
 
-def splitlines():
+def splitlines(self):
     """
     Splits the string at line breaks and returns a list
     """
-    pass
+    return self.split('\n')
 
-def startswith():
+def startswith(self, val):
     """
     Returns true if the string starts with the specified value
     """
-    pass
+    return self[0:len(val)] == val
+
 
 def strip():
     """
@@ -269,11 +296,14 @@ def strip():
     """
     pass
 
-def swapcase():
+def swapcase(self):
     """
     Swaps cases, lower case becomes upper case and vice versa
     """
-    pass
+    maj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    min = "abcdefghijklmnopqrstuvwxyz"
+    trans = self.maketrans(maj+min, min+maj)
+    return self.translate(trans)
 
 def title():
     """

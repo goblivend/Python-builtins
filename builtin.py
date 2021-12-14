@@ -1,21 +1,27 @@
 
-def abs() :
+def abs(val) :
     """
     Returns the absolute value of a number
     """
-    pass
+    return (-2*(val < 0) + 1) * val
 
-def all() :
+def all(vals) :
     """
     Returns True if all items in an iterable object are true
     """
-    pass
+    for val in vals :
+        if not val :
+            return False
+    return True
 
-def any() :
+def any(vals) :
     """
     Returns True if any item in an iterable object is true
     """
-    pass
+    for val in vals :
+        if val :
+            return True
+    return False
 
 def ascii() :
     """
@@ -95,11 +101,13 @@ def dir() :
     """
     pass
 
-def divmod() :
+def divmod(a, b) :
     """
     Returns the quotient and the remainder when argument1 is divided by argument2
     """
-    pass
+    quot = a // b
+    rest = a - b*quot
+    return quot, rest
 
 def enumerate() :
     """
@@ -191,17 +199,17 @@ def input() :
     """
     pass
 
-def int() :
+def int(val) :
     """
     Returns an integer number
     """
-    pass
+    return val//1
 
-def isinstance() :
+def isinstance(mytype, val) :
     """
     Returns True if a specified object is an instance of a specified object
     """
-    pass
+    return type(val) == mytype
 
 def issubclass() :
     """
@@ -215,11 +223,14 @@ def iter() :
     """
     pass
 
-def len() :
+def len(val) :
     """
     Returns the length of an object
     """
-    pass
+    length = 0
+    for i in val:
+        length += 1
+    return length
 
 def list() :
     """
@@ -239,11 +250,15 @@ def map() :
     """
     pass
 
-def max() :
+def max(ite) :
     """
     Returns the largest item in an iterable
     """
-    pass
+    mymax = ite[0]
+    for val in ite :
+        if val > mymax :
+            mymax = val
+    return mymax
 
 def memoryview() :
     """
@@ -255,7 +270,11 @@ def min() :
     """
     Returns the smallest item in an iterable
     """
-    pass
+    mymin = ite[0]
+    for val in ite :
+        if val < mymin :
+            mymin = val
+    return mymin
 
 def next() :
     """
@@ -287,11 +306,11 @@ def ord() :
     """
     pass
 
-def pow() :
+def pow(x, y) :
     """
     Returns the value of x to the power of y
     """
-    pass
+    return x**y
 
 def print() :
     """
@@ -317,11 +336,14 @@ def repr() :
     """
     pass
 
-def reversed() :
+def reversed(self) :
     """
     Returns a reversed iterator
     """
-    pass
+    newite = []
+    for i in range(len(self)) :
+        newite.append(self[-i-1])
+    return newite
 
 def round() :
     """
@@ -365,11 +387,14 @@ def str() :
     """
     pass
 
-def sum() :
+def sum(ite) :
     """
     Sums the items of an iterator
     """
-    pass
+    mysum = 0
+    for val in ite :
+        mysum += val
+    return mysum
 
 def super() :
     """
